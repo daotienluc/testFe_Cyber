@@ -1,49 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, MenuProps, theme } from "antd";
-import { NavLink, Outlet } from "react-router-dom";
+import { Button, Layout, Menu, theme } from "antd";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { pathDefault } from "../../common/path";
 
 const { Header, Sider, Content } = Layout;
-
-const items: MenuProps["items"] = [
-  {
-    label: (
-      <a
-        href="https://www.antgroup.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        1st menu item
-      </a>
-    ),
-    key: "0",
-  },
-  {
-    label: (
-      <a
-        href="https://www.aliyun.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        2nd menu item
-      </a>
-    ),
-    key: "1",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: "3rd menu item",
-    key: "3",
-  },
-];
 
 const HomeTemplate: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -53,11 +19,17 @@ const HomeTemplate: React.FC = () => {
 
   const dataString: any = localStorage.getItem("userInfo");
   const data = JSON.parse(dataString);
-  useEffect(() => {
-    if (!data) {
-      window.location.href = pathDefault.signin;
-    }
-  }, []);
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate(pathDefault.signin);
+  };
+  // useEffect(() => {
+  //   if (!data) {
+  //     window.location.href = pathDefault.signin;
+  //   }
+  // }, []);
 
   return (
     <Layout className="min-h-screen">
@@ -118,12 +90,13 @@ const HomeTemplate: React.FC = () => {
               height: 64,
             }}
           />
-          <Dropdown menu={{ items }} trigger={["click"]}>
-            <div className=" mr-4">
-              {/* <span className="font-medium text-base">Welcom {data.name}</span> */}
+          <div className=" mr-4">
+            {data ? (
               <UserOutlined className="border-2 p-3 rounded-full cursor-pointer hover:shadow-xl" />
-            </div>
-          </Dropdown>
+            ) : (
+              <Button onClick={() => handleLogin()}>Login</Button>
+            )}
+          </div>
         </Header>
         <Content
           style={{
