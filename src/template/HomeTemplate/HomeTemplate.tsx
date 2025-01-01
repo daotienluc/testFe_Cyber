@@ -120,7 +120,7 @@ const HomeTemplate: React.FC = () => {
           />
           <Dropdown menu={{ items }} trigger={["click"]}>
             <div className=" mr-4">
-              <span className="font-medium text-base">Welcom {data.name}</span>
+              {/* <span className="font-medium text-base">Welcom {data.name}</span> */}
               <UserOutlined className="border-2 p-3 rounded-full cursor-pointer hover:shadow-xl" />
             </div>
           </Dropdown>
