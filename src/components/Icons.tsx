@@ -1,6 +1,3 @@
-import { Image } from "antd";
-import React from "react";
-
 const Icons = {
   logo: () => (
     <svg
